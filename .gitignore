@@ -1,23 +1,177 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+import java.io.*;
+class HandCricket
+{
+    static String uchar;
+    static int uch=0;
+    static int cch=0;
+    static int toss=0;
+    static String utoss;
+    static int compch=0;
+    static int ustoss=0;
+    static int score=0;
+    static int out=1;
+    static int cscore=0;
+    static int cout=1;
+    static int tscore=0;
+    static int lscore=0;
+    static int usc=0;
+    static int csc=0;
+    static String refresh;
+    public static void toss()throws IOException
+    {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        System.out.println("Enter your character either Tom or Jerry[T/J]:");
+        uchar=br.readLine();
+        System.out.println("Enter a number for toss between 1 to 6:");
+        uch=Integer.parseInt(br.readLine());
+        cch = (int)((Math.random()*6)+1);
+        toss=uch+cch;
+        if(toss%2==0)
+        {
+            if(uchar=="J")
+            {
+                System.out.println("You won the toss");
+                System.out.println("Enter your choice either batting or balling[BAT/BALL]");
+                utoss=br.readLine();
+            }
+            else
+            {
+                System.out.println("YOu lost the toss.");
+                compch=(int)((Math.random()*6)+1);
+                if(compch<=30)
+                {
+                    utoss="BAT";
+                    System.out.println("Computer chooses balling");
+                }
+                else
+                {
+                    utoss="BALL";
+                    System.out.println("Compter chooses batting");
+                }
+            }
+        }
+        else
+        {
+            if(uchar=="T")
+            {
+                System.out.println("You won the toss");
+                System.out.println("Enter your choice either batting or balling[BAT/BALL]");
+                utoss=br.readLine();
+            }
+            else
+            {
+                System.out.println("YOu lost the toss.");
+                compch=(int)((Math.random()*6)+1);
+                if(compch<=30)
+                {
+                    utoss="BAT";
+                    System.out.println("Computer chooses balling");
+                }
+                else
+                {
+                    utoss="BALL";
+                    System.out.println("Compter chooses batting");
+                }
+            }
+        }
+    }
+    public static void bat()throws IOException
+    {
+        InputStreamReader isr=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(isr);
+        System.out.println("Its your turn for batting");
+        while(out!=0)
+        {
+            System.out.println("Enter your shot between 1 to 6:");
+            usc=Integer.parseInt(br.readLine());
+            csc=(int)((Math.random()*6)+1);
+            if (usc>6 || usc<1)
+            {
+                System.out.println("you tried to cheat!");
+                System.out.println("you are out!");
+                out=0;
+            }
+            else if (usc != csc)
+            {
+                System.out.println("you scored"+usc+"runs");
+                score+=usc;
+            }
+            else
+            {
+                System.out.println("Shot matched!");
+                System.out.println("you are out1");
+                out=0;
+            }
+            System.out.println("Computer's shot is:"+csc);
+        }
+        System.out.println("your total runs are:"+score);
+    }
+    public static void ball()throws IOException
+    {
+        InputStreamReader isr=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(isr);
+        System.out.println("Its your turn for balling");
+        while(cout!=0)
+        {
+            System.out.println("Enter your shot between 1 to 6:");
+            usc=Integer.parseInt(br.readLine());
+            csc=(int)((Math.random()*6)+1);
+            if (usc>6 || usc<1)
+            {
+                System.out.println("you tried to cheat!");
+                System.out.println("your 20 runs are deducted!");
+                score-=20;
+            }
+            else if (usc != csc)
+            {
+                System.out.println("computer scored"+csc+"runs");
+                cscore+=csc;
+            }
+            else
+            {
+                System.out.println("Shot matched!");
+                System.out.println("computer is out1");
+                cout=0;
+            }
+            System.out.println("Computer's shot is:"+csc);
+        }
+        System.out.println("computer's total runs are:"+cscore);
+    }
+    public static void game()throws IOException
+    {
+        if(utoss.compareTo("BAT")==0)
+        {
+            HandCricket.bat();
+            HandCricket.ball();
+        }
+        else
+        {
+            HandCricket.ball();
+            HandCricket.bat();
+        }
+    }
+    void result()
+    {
+        System.out.println("GAME OVER!");
+        if(score>cscore)
+        {
+            System.out.println("you won");
+        }
+        else if(score == cscore)
+        {
+            System.out.println("Its a tie!");
+        }
+        else
+        {
+            System.out.println("you lost");
+        }
+    }
+    public static void main()throws IOException
+    {
+        HandCricket handCricket = new HandCricket();
+        handCricket.toss();
+        handCricket.game();
+        handCricket.result();
+    }
+}
